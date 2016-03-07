@@ -1,0 +1,8 @@
+# vim
+*.swp
+
+# nodejs
+/node_modules
+
+# Mac
+.DS_Store

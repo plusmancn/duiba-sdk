@@ -1,0 +1,26 @@
+{
+  "name": "duibai-sdk",
+  "version": "1.0.0",
+  "description": "The Node Sdk For 兑吧（http://www.duiba.com.cn/）",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "duiba",
+    "兑吧",
+    "sdk"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plusmancn/duiba-sdk.git"
+  },
+  "author": "plusmancn@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "lodash": "^4.6.1"
+  }
+}
