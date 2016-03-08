@@ -1,7 +1,6 @@
 // 用于进行服务器响应测试
 'use strict';
 var http = require('http');
-
 const PORT = 8080;
 
 http.createServer(function(req, res){
