@@ -1,6 +1,6 @@
 {
-  "name": "duibai-sdk",
-  "version": "1.0.0",
+  "name": "duiba-sdk",
+  "version": "0.1.0",
   "description": "The Node Sdk For 兑吧（http://www.duiba.com.cn/）",
   "main": "index.js",
   "scripts": {

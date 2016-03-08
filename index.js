@@ -6,36 +6,32 @@ var _ = require('lodash');
 
 var ConfigUrl = require('./config/url.js');
 
+
+
 /**
  * 生成免登录URL
  * 
- * @param {String} uid `用户id （用not_login作为uid标记游客用户，详见 游客访问）`
- * @param {Long} credits `用户积分余额`
  * @param {String} appKey `接口key`
- * @param 
- * @param {Object} options `可选`
+ * eparam {String} appSecret `接口密匙`
+ * @param {Object} params `如下`
  * ```
  * {
+ *   {String} uid      `用户id （用not_login作为uid标记游客用户，详见 游客访问）`
+ *   {Long}   credits    `用户积分余额`
  *   {String} redirect `回调url`
- *   {Long} timestamp `1970-01-01开始的时间戳，毫秒为单位。`
+ *   {Long}   timestamp `1970-01-01开始的时间戳，毫秒为单位。`
  * }
  * ```
  */
-function loginUrl(uid, credits, appKey, sign, options /*, callback*/ ){
+function buildUrlWithSign(appKey, appSecret, params /*, callback*/ ){
     // callback = typeof callback === 'function' ? callback : (options || function(){});
-    var urlObj = {
-        uid: uid,
-        credits: credits,
-        appKey: appKey,
-        sign: sign,
-        timestamp: (options && options.timestamp) || Date.now()
-    };
+    params.appKey = appKey;
+    params.timestamp = params.timestamp || Date.now();
+    
+    // 生成sign
+    params.sign = genSign(querystring.stringify(params), appSecret);
 
-    if(options && options.redirect){
-        urlObj.redirect = options.redirect;
-    }
-
-    var urlQuery = querystring.stringify(urlObj);
+    var urlQuery = querystring.stringify(params);
     return  ConfigUrl.URL_AUTOLOGIN + '?' + urlQuery;
 }
 
@@ -146,7 +142,7 @@ function _parseDuibaUrlQuery(urlQuery, appSecret){
 }
 
 module.exports = {
-    loginUrl: loginUrl,
+    buildUrlWithSign: buildUrlWithSign,
     genSign: genSign,
     parseCreditConsume: parseCreditConsume,
     parseCreditNotify: parseCreditNotify,

@@ -3,20 +3,23 @@ var assert = require('assert');
 var Duiba = require('../');
 
 describe('Duiba', function(){
-    describe('#loginUrl', function(){
-        it('参数 options.redirect 缺失，输出url不带redirect', function(){
-            let timestamp = Date.now();
-            let url = Duiba.loginUrl(
-                'plusman',
-                2000,
-                'APP_KEY_123456',
-                'SIGN_KkpIoEK',
+    describe('#buildUrlWithSign', function(){
+        let appKey = 'testappkey';
+        let appSecret = 'testappsecret';
+        let timestamp = 1457409005493;
+
+        it('参数 params.redirect 缺失，输出url不带redirect', function(){
+            let url = Duiba.buildUrlWithSign(
+                appKey,
+                appSecret,
                 {
-                    timestamp: timestamp
+                    'uid': 'plusman',
+                    'credits': 2000,
+                    'timestamp': timestamp
                 }
             );
 
-            let expected = `http://www.duiba.com.cn/autoLogin/autologin?uid=plusman&credits=2000&appKey=APP_KEY_123456&sign=SIGN_KkpIoEK&timestamp=${timestamp}`;
+            let expected = `http://www.duiba.com.cn/autoLogin/autologin?uid=plusman&credits=2000&timestamp=${timestamp}&appKey=testappkey&sign=de02a5b5a24660d6999109b466ff6a51`;
             assert.equal(
                 url, 
                 expected
@@ -24,20 +27,19 @@ describe('Duiba', function(){
         });
 
 
-        it('参数含 options.redirect，输出url带redirect', function(){
-            let timestamp = Date.now();
-            let url = Duiba.loginUrl(
-                'plusman',
-                2000,
-                'APP_KEY_123456',
-                'SIGN_KkpIoEK',
+        it('参数含 params.redirect，输出url带redirect', function(){
+            let url = Duiba.buildUrlWithSign(
+                appKey,
+                appSecret,
                 {
-                    redirect: 'http://www.plusman.cn',
-                    timestamp: timestamp
+                    'uid': 'plusman',
+                    'credits': 2000,
+                    'redirect': 'http://www.plusman.cn',
+                    'timestamp': timestamp
                 }
             );
 
-            let expected = `http://www.duiba.com.cn/autoLogin/autologin?uid=plusman&credits=2000&appKey=APP_KEY_123456&sign=SIGN_KkpIoEK&timestamp=${timestamp}&redirect=http%3A%2F%2Fwww.plusman.cn`;
+            let expected = `http://www.duiba.com.cn/autoLogin/autologin?uid=plusman&credits=2000&redirect=http%3A%2F%2Fwww.plusman.cn&timestamp=${timestamp}&appKey=testappkey&sign=7d748e19f290bc076542d8b27442cf3c`;
             assert.equal(
                 url, 
                 expected
