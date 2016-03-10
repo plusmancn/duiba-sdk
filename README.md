@@ -4,8 +4,15 @@
 [![Dependency Status](https://david-dm.org/plusmancn/duiba-sdk.svg)](https://david-dm.org/plusmancn/duiba-sdk.svg)
 
 ## Installation
+需要：node 4.0 +
 ```sh
 $ npm install duiba-sdk
+```
+
+## Test
+安装 [mocha](https://github.com/mochajs/mocha) 后执行
+```sh
+npm test
 ```
 
 ## Document
@@ -25,10 +32,10 @@ let loginUrl = Duiba.buildUrlWithSign(
   {
     'uid': 'plusman',
     'credits': 2000,
-    'redirect': 'http://www.plusman.cn',
-    'timestamp': timestamp
+    'redirect': 'http://www.plusman.cn', // 可选，默认为兑换起始页
+    'timestamp': timestamp // 可选值，默认为 Date.now()
   }
-)
+);
 
 // loginUrl:
 // http://www.duiba.com.cn/autoLogin/autologin?uid=plusman&credits=2000&redirect=http%3A%2F%2Fwww.plusman.cn&timestamp=1457409005493&appKey=testappkey&sign=7d748e19f290bc076542d8b27442cf3c
